@@ -1,5 +1,5 @@
 # cisco-asa-acl-tester
-Script for testing valid host-to-host ACL entries on Cisco ASA firewalls (software version 8.4 and later):
+Python script for testing valid host-to-host ACL entries on Cisco ASA firewalls (software version 8.4 and later):
   
   1) Takes valid host-to-host ACL entries from the clipboard.
   2) Automatically finds the incoming interface and the name of the access-list configured on that interface.
