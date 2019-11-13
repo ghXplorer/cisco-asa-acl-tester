@@ -8,5 +8,6 @@ Script for testing valid host-to-host ACL entries on Cisco ASA firewalls (softwa
      (shows the ACL lines and asks for confirmation).
 
 Input example:
+
 access-list test-app extended permit tcp host 10.0.0.10 host 192.168.0.10 eq 443
 access-list test-app extended permit udp host 10.0.0.15 host 192.168.0.10 eq 53
