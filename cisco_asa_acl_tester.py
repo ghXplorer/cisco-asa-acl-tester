@@ -163,18 +163,18 @@ while True:
     : '''
     
     if answer == 'y':
-        fw_number = input(msg)
-        if int(fw_number) == 1:
+        fw_number = int(input(msg))
+        if fw_number == 1:
             print('\nTesting on ASA_1...\n')
             asa_device_1['username'] = username
             asa_device_1['password'] = secret_pass
             packet_tracer(asa_device_1, acl_entries_final_range)
-        elif int(fw_number) == 2:
+        elif fw_number == 2:
             print('\nTesting on ASA_2...\n')
             asa_device_2['username'] = username
             asa_device_2['password'] = secret_pass
             packet_tracer(asa_device_2, acl_entries_final_range)
-        elif int(fw_number) == 3:
+        elif fw_number == 3:
             print('\nTesting on ASA_3...\n')
             asa_device_3['username'] = username
             asa_device_3['password'] = secret_pass
