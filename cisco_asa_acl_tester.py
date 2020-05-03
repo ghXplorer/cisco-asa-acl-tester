@@ -7,6 +7,7 @@ from netmiko import ConnectHandler
 
 
 def packet_tracer(device_name, acl_entries_final):
+    '''Test an ASA access-list and add missing entries to it if needed'''
 
     os.system('color')
     ALLOWED = '\x1b[6;30;42m' + 'ALLOWED!' + '\x1b[0m'
@@ -104,13 +105,26 @@ def packet_tracer(device_name, acl_entries_final):
             ace_final = re.sub(r'access-list ([a-zA-Z0-9_-]+) ', acl_name_replacement, ace)
             config_commands.append(ace_final)
             print(ace_final)
-        
+
+        full_access_answer = input('\nWould you like to add full TCP/UDP acceess for these access rules (default - NO, y - YES)?:')
+        print()
+        config_commands_temp = []
+        if full_access_answer == 'y':
+            for line in config_commands:
+                config_commands_temp.append(line.split()[:-2])
+            config_commands.clear()
+            for line in config_commands_temp:
+                config_commands.append(' '.join(line))
+            config_commands = list(set(config_commands))
+            for line in config_commands:
+                print(line)
+
         config_answer = input(f'\nWould you like to add these access rules to the ACL: {acl_name}? (y/n):')
         if config_answer == 'y':
             print('\nAdding rules to the ACL and saving config...')
             net_connect.send_config_set(config_commands)
             net_connect.send_command('write memory')
-            print('\nDone.\n')    
+            print('\nDone.\n')
     
     print('\nClosing SSH session to the firewall...')
     net_connect.disconnect()
@@ -178,7 +192,7 @@ while True:
             print('\nTesting on ASA_3...\n')
             asa_device_3['username'] = username
             asa_device_3['password'] = secret_pass
-            packet_tracer(asa_device_2, acl_entries_final_range)
+            packet_tracer(asa_device_3, acl_entries_final_range)
     else:
         print('\nBye!')
         sys.exit()
