@@ -136,7 +136,7 @@ def main():
     username = 'ENTER_USERNAME_HERE'
     secret_pass = getpass('\nEnter your password: ')
     
-    with open(r'./myscripts/net_devices.yml', 'r') as file:
+    with open(r'./net_devices.yml', 'r') as file:
         asa_params = yaml.load(file, Loader=yaml.FullLoader)
     
     acl_entries_final_range = [line for line in pyperclip.paste().splitlines() if len(line) != 0]
