@@ -133,6 +133,9 @@ def packet_tracer(device_name, acl_entries_final):
 
 
 def main():
+    username = 'ENTER_USERNAME_HERE'
+    secret_pass = getpass('\nEnter your password: ')
+    
     with open(r'./myscripts/net_devices.yml', 'r') as file:
             asa_params = yaml.load(file, Loader=yaml.FullLoader)
     
@@ -140,10 +143,7 @@ def main():
     print('\nACL contains {} entries:\n'.format(len(acl_entries_final_range)))
     for i in acl_entries_final_range:
         print(i)
-    
-    username = 'ENTER_USERNAME_HERE'
-    secret_pass = getpass('\nEnter your password: ')
-    
+   
     while True:
         answer = input('\nWould you like to test these ACL entries with packet-tracer on a firewall (y/n): ')
         
@@ -160,19 +160,19 @@ def main():
             fw_number = int(input(msg))
             if fw_number == 1:
                 print('\nTesting on ASA_1...\n')
-                asa_device_1['username'] = username
-                asa_device_1['password'] = secret_pass
-                packet_tracer(asa_device_1, acl_entries_final_range)
+                asa_params['asa_device_1']['username'] = username
+                asa_params['asa_device_1']['password'] = secret_pass
+                packet_tracer(asa_params['asa_device_1'], acl_entries_final_range)
             elif fw_number == 2:
                 print('\nTesting on ASA_2...\n')
-                asa_device_2['username'] = username
-                asa_device_2['password'] = secret_pass
-                packet_tracer(asa_device_2, acl_entries_final_range)
+                asa_params['asa_device_2']['username'] = username
+                asa_params['asa_device_2']['password'] = secret_pass
+                packet_tracer(asa_params['asa_device_2'], acl_entries_final_range)
             elif fw_number == 3:
                 print('\nTesting on ASA_3...\n')
-                asa_device_3['username'] = username
-                asa_device_3['password'] = secret_pass
-                packet_tracer(asa_device_3, acl_entries_final_range)
+                asa_params['asa_device_3']['username'] = username
+                asa_params['asa_device_3']['password'] = secret_pass
+                packet_tracer(asa_params['asa_device_3'], acl_entries_final_range)
         else:
             print('\nBye!')
             sys.exit()
