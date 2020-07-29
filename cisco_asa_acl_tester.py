@@ -137,7 +137,7 @@ def main():
     secret_pass = getpass('\nEnter your password: ')
     
     with open(r'./myscripts/net_devices.yml', 'r') as file:
-            asa_params = yaml.load(file, Loader=yaml.FullLoader)
+        asa_params = yaml.load(file, Loader=yaml.FullLoader)
     
     acl_entries_final_range = [line for line in pyperclip.paste().splitlines() if len(line) != 0]
     print('\nACL contains {} entries:\n'.format(len(acl_entries_final_range)))
