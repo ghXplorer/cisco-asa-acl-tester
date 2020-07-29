@@ -1,0 +1,17 @@
+asa_device_1:
+  device_type: cisco_asa
+  host: 10.0.0.1
+  username: admin
+  password: cisco123
+
+asa_device_2:
+  device_type: cisco_asa
+  host: 10.0.0.2
+  username: admin
+  password: cisco123
+
+asa_device_3:
+  device_type: cisco_asa
+  host: 10.0.0.3
+  username: admin
+  password: cisco123
