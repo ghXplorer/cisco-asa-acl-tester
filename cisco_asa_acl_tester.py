@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import yaml
 import pyperclip
 from getpass import getpass
 from netmiko import ConnectHandler
@@ -131,68 +132,51 @@ def packet_tracer(device_name, acl_entries_final):
     print('Done.')
 
 
-# LIST OF CISCO ASAs AND THEIR CREDENTIALS
-asa_device_1 = { 
-    'device_type': 'cisco_asa',
-    'host': '10.0.0.1',
-    'username': 'admin',
-    'password': 'cisco123',
-    }
-
-asa_device_2 = { 
-    'device_type': 'cisco_asa',
-    'host': '10.0.0.2',
-    'username': 'admin',
-    'password': 'cisco123',
-    }
-
-asa_device_3 = { 
-    'device_type': 'cisco_asa',
-    'host': '10.0.0.3',
-    'username': 'admin',
-    'password': 'cisco123',
-    }
-
-
-acl_entries_final_range = [line for line in pyperclip.paste().splitlines() if len(line) != 0]
-print('\nACL contains {} entries:\n'.format(len(acl_entries_final_range)))
-for i in acl_entries_final_range:
-    print(i)
-
-
-username = 'ENTER_USERNAME_HERE'
-secret_pass = getpass('\nEnter your password: ')
-
-
-while True:
-    answer = input('\nWould you like to test these ACL entries with packet-tracer on a firewall (y/n): ')
+def main():
+    with open(r'./myscripts/net_devices.yml', 'r') as file:
+            asa_params = yaml.load(file, Loader=yaml.FullLoader)
     
-    msg = '''
-    Choose the firewall:
+    acl_entries_final_range = [line for line in pyperclip.paste().splitlines() if len(line) != 0]
+    print('\nACL contains {} entries:\n'.format(len(acl_entries_final_range)))
+    for i in acl_entries_final_range:
+        print(i)
     
-    ASA_1  ----------  1
-    ASA_2  ----------  2
-    ASA_3  ----------  3
+    username = 'ENTER_USERNAME_HERE'
+    secret_pass = getpass('\nEnter your password: ')
     
-    : '''
-    
-    if answer == 'y':
-        fw_number = int(input(msg))
-        if fw_number == 1:
-            print('\nTesting on ASA_1...\n')
-            asa_device_1['username'] = username
-            asa_device_1['password'] = secret_pass
-            packet_tracer(asa_device_1, acl_entries_final_range)
-        elif fw_number == 2:
-            print('\nTesting on ASA_2...\n')
-            asa_device_2['username'] = username
-            asa_device_2['password'] = secret_pass
-            packet_tracer(asa_device_2, acl_entries_final_range)
-        elif fw_number == 3:
-            print('\nTesting on ASA_3...\n')
-            asa_device_3['username'] = username
-            asa_device_3['password'] = secret_pass
-            packet_tracer(asa_device_3, acl_entries_final_range)
-    else:
-        print('\nBye!')
-        sys.exit()
+    while True:
+        answer = input('\nWould you like to test these ACL entries with packet-tracer on a firewall (y/n): ')
+        
+        msg = '''
+        Choose the firewall:
+        
+        ASA_1  ----------  1
+        ASA_2  ----------  2
+        ASA_3  ----------  3
+        
+        : '''
+        
+        if answer == 'y':
+            fw_number = int(input(msg))
+            if fw_number == 1:
+                print('\nTesting on ASA_1...\n')
+                asa_device_1['username'] = username
+                asa_device_1['password'] = secret_pass
+                packet_tracer(asa_device_1, acl_entries_final_range)
+            elif fw_number == 2:
+                print('\nTesting on ASA_2...\n')
+                asa_device_2['username'] = username
+                asa_device_2['password'] = secret_pass
+                packet_tracer(asa_device_2, acl_entries_final_range)
+            elif fw_number == 3:
+                print('\nTesting on ASA_3...\n')
+                asa_device_3['username'] = username
+                asa_device_3['password'] = secret_pass
+                packet_tracer(asa_device_3, acl_entries_final_range)
+        else:
+            print('\nBye!')
+            sys.exit()
+
+
+if __name__ == '__main__':
+    main()
