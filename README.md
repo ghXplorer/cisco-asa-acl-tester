@@ -8,6 +8,7 @@
   - Automatically configures corresponding ACL entries to allow the traffic through the firewall
      (shows the ACL lines before configuring and asks for confirmation).
 
+___
 
 **Input example:**
 ```
