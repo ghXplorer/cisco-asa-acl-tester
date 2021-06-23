@@ -49,7 +49,7 @@ def packet_tracer(device_name, acl_entries_final):
                                                                                    components.group(3),
                                                                                    components.group(4)))
     output_sh_run_acl_group = net_connect.send_command('sh run access-group')
-    regex_pattern = r'access-group ([a-zA-Z0-9_-]+) in interface {}'.format(pkt_tracer_intf)
+    regex_pattern = r'access-group ([a-zA-Z0-9_-]+) in interface {}$'.format(pkt_tracer_intf)
     for i in output_sh_run_acl_group.splitlines():
         intf_match = re.search(regex_pattern, i)
         if intf_match:
